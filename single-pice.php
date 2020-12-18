@@ -15,19 +15,19 @@ if ( have_posts() )
         {
           $sIstaknutaSlika = get_the_post_thumbnail_url($post->ID);
         }
-        $oHranaVrste = wp_get_post_terms( $post->ID, 'hrana_vrsta' );
-        $oHranaVrsta = "-";
-            if(sizeof($oHranaVrste)>0)
+        $oPiceVrste = wp_get_post_terms( $post->ID, 'pice_vrsta' );
+        $oPiceVrsta = "-";
+            if(sizeof($oPiceVrste)>0)
                 {
-                    $oHranaVrsta = $oHranaVrste[0]->name;
+                    $oPiceVrsta = $oPiceVrste[0]->name;
                     echo '
-                    <div class="hrana-container">
-                        <div class="hrana-container-slika">
+                    <div class="pice-container">
+                        <div class="pice-container-slika">
                           <div class="pozadinska_boja"></div>
                           <img src="'.$sIstaknutaSlika.'">
                         </div>
                         <div class="container" style="text-align:center;">
-                        <h3>'.$oHranaVrsta.'</h3>
+                        <h3>'.$oPiceVrsta.'</h3>
                         '.nl2br($post->post_content).'
                         </div>
                       </div>';

@@ -10,7 +10,6 @@ Text Domain: tastytrap
 
 #mainNav {
   position: fixed;
-  background-color: #222;
 }
 
 #mainStr {
@@ -26,10 +25,15 @@ Text Domain: tastytrap
   margin-left: -15px;
 }
 
+a {
+  text-decoration: none !important;
+}
+
 li {
   display: block;
   transition-duration: 0.5s;
   padding: 15px;
+  margin-right: 10px;
 }
 
 li:hover {
@@ -118,20 +122,38 @@ table tr {
   display: inline-block;
 }
 
+body {
+  position: relative;
+  min-height: calc(100vh - 32px);
+}
+
 footer {
   padding: 25px 0;
   background-color: #ddd;
-  margin-top: 72px;
+
+  position: absolute;
+  bottom: 0;
+  width: 100%;
 }
 
-.hrana-vrsta-item {
-  font-size: 40px;
+.pozadinska_boja {
+  background: linear-gradient(#8d93ab, #fff) !important;
+  height: 800px !important;
+  width: 100%;
+  position: absolute;
+  z-index: -1;
 }
+
+/* ------------------ */
+/* HRANA */
+/* ------------------ */
+
 .hrana-item {
   font-size: 20px;
   background-color: #808080;
   color: #222;
 }
+/* single-hrana */
 .hrana-container {
   display: flex;
   flex-direction: column;
@@ -141,4 +163,312 @@ footer {
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+.hrana-container-slika .pozadinska_boja {
+  background: linear-gradient(#adff2f, #fff);
+  height: 400px;
+  width: 100%;
+  position: absolute;
+  z-index: -1;
+}
+.hrana-container-slika img {
+  margin-top: 70px;
+}
+
+.hrana-vrsta-item h2 {
+  font-size: 4rem;
+  margin-bottom: 50px;
+  padding-top: 50px;
+}
+
+.hrana-item-ul {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding: 0;
+  padding-left: 100px;
+  padding-right: 100px;
+}
+
+.hrana-item-ul .card {
+  width: 18rem;
+  margin-bottom: 16px;
+  min-height: 300px;
+  border: none;
+  background-color: #f9f7f6;
+  display: flex;
+  align-items: center;
+}
+.hrana-item-ul .card:hover {
+  background-color: #fff;
+}
+
+.card .card-title {
+  color: #222;
+}
+
+.hrana-item-ul .card img {
+  width: 70%;
+  height: 70%;
+}
+
+.container-fluid {
+  background-color: #f9f7f6;
+  padding-bottom: 72px;
+}
+
+/* ------------------ */
+/* PIĆE */
+/* ------------------ */
+
+.pice-item {
+  font-size: 20px;
+  background-color: #808080;
+  color: #222;
+}
+/* single-pice */
+.pice-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.pice-container-slika {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.pice-container-slika .pozadinska_boja {
+  background: linear-gradient(#3498db, #fff);
+  height: 400px;
+  width: 100%;
+  position: absolute;
+  z-index: -1;
+}
+.pice-container-slika img {
+  margin-top: 70px;
+}
+
+.pice-vrsta-item h2 {
+  font-size: 4rem;
+  margin-bottom: 50px;
+  padding-top: 50px;
+}
+
+.pice-item-ul {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding: 0;
+  padding-left: 100px;
+  padding-right: 100px;
+}
+
+.pice-item-ul .card {
+  width: 18rem;
+  margin-bottom: 16px;
+  min-height: 300px;
+  border: none;
+  background-color: #f9f7f6;
+  display: flex;
+  align-items: center;
+}
+.pice-item-ul .card:hover {
+  background-color: #fff;
+}
+
+.pice-item-ul .card img {
+  width: 70%;
+  height: 70%;
+}
+
+/* ------------------ */
+/* VIJESTI */
+/* ------------------ */
+
+.vijest-item {
+  font-size: 20px;
+  background-color: #808080;
+  color: #222;
+}
+/* single-pice */
+.vijest-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.vijest-container-slika {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.vijest-container-slika .pozadinska_boja {
+  background: linear-gradient(#3498db, #fff);
+  height: 400px;
+  width: 100%;
+  position: absolute;
+  z-index: -1;
+}
+.vijest-container-slika img {
+  margin-top: 70px;
+}
+
+.vijest-vrsta-item h2 {
+  font-size: 4rem;
+  margin-bottom: 50px;
+  padding-top: 50px;
+}
+
+.vijest-item-ul {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding: 0;
+  padding-left: 100px;
+  padding-right: 100px;
+}
+
+.vijest-item-ul .card {
+  width: 18rem;
+  margin-bottom: 16px;
+  min-height: 300px;
+  border: none;
+  background-color: #f9f7f6;
+  display: flex;
+  align-items: center;
+}
+.vijest-item-ul .card:hover {
+  background-color: #fff;
+}
+
+.vijest-item-ul .card img {
+  width: 70%;
+  height: 70%;
+}
+
+/* ------------------ */
+/* ZAPOSLENICI */
+/* ------------------ */
+
+.zaposlenik-item {
+  font-size: 20px;
+  background-color: #808080;
+  color: #222;
+}
+/* single-pice */
+.zaposlenik-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.zaposlenik-container-slika {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.zaposlenik-container-slika .pozadinska_boja {
+  background: linear-gradient(#3498db, #fff);
+  height: 400px;
+  width: 100%;
+  position: absolute;
+  z-index: -1;
+}
+.zaposlenik-container-slika img {
+  margin-top: 70px;
+}
+
+.zaposlenik-vrsta-item h2 {
+  font-size: 4rem;
+  margin-bottom: 50px;
+  padding-top: 50px;
+}
+
+.zaposlenik-item-ul {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding: 0;
+  padding-left: 100px;
+  padding-right: 100px;
+}
+
+.zaposlenik-item-ul .card {
+  width: 18rem;
+  margin-bottom: 16px;
+  min-height: 300px;
+  border: none;
+  background-color: #f9f7f6;
+  display: flex;
+  align-items: center;
+}
+.zaposlenik-item-ul .card:hover {
+  background-color: #fff;
+}
+
+.zaposlenik-item-ul .card img {
+  width: 70%;
+  height: 70%;
+}
+
+/* ------------------ */
+/* MENIJI */
+/* ------------------ */
+
+.meni-item {
+  font-size: 20px;
+  background-color: #808080;
+  color: #222;
+}
+/* single-pice */
+.meni-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.meni-container-slika {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.meni-container-slika .pozadinska_boja {
+  background: linear-gradient(#f1c40f, #fff);
+  height: 400px;
+  width: 100%;
+  position: absolute;
+  z-index: -1;
+}
+.meni-container-slika img {
+  margin-top: 70px;
+}
+
+.meni-vrsta-item h2 {
+  font-size: 4rem;
+  margin-bottom: 50px;
+  padding-top: 50px;
+}
+
+.meni-item-ul {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding: 0;
+  padding-left: 100px;
+  padding-right: 100px;
+}
+
+.meni-item-ul .card {
+  width: 18rem;
+  margin-bottom: 16px;
+  min-height: 300px;
+  border: none;
+  background-color: #f9f7f6;
+  display: flex;
+  align-items: center;
+}
+.meni-item-ul .card:hover {
+  background-color: #fff;
+}
+
+.meni-item-ul .card img {
+  width: 70%;
+  height: 70%;
 }

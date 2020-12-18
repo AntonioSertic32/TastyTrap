@@ -88,7 +88,7 @@ function registriraj_hrana_cpt() {
         'show_ui' => true,
         'show_in_menu' => true,
         'menu_position' => 5,
-        'menu_icon' => 'dashicons-groups',
+        'menu_icon' => 'dashicons-drumstick',
         'show_in_admin_bar' => true,
         'show_in_nav_menus' => true,
         'can_export' => false,
@@ -152,18 +152,107 @@ function daj_hranu( $slug )
 		'terms' => $slug
     )));
     $hranaM = get_posts( $args );
-    $sHtml = "<ul>";
+    $sHtml = "<ul class='hrana-item-ul'>";
     foreach ($hranaM as $hrana)
     {
+        $nHranaId = $hrana->ID;
 		$sHranaUrl = $hrana->guid;
-		$sHranaNaziv = $hrana->post_title;
-		$sHtml .= '<li class="hrana-item"><a href="'.$sHranaUrl.'">'.$sHranaNaziv.'</a></li>';
+        $sHranaNaziv = $hrana->post_title;
+        $sHranaImg = get_the_post_thumbnail_url($nHranaId);
+
+        $sHtml .= '
+        <a href="'.$sHranaUrl.'">
+            <div class="card">
+                <img class="card-img-top" src="'.$sHranaImg.'" alt="Card image cap">
+                <div class="card-body">
+                    <h5 class="card-title">'.$sHranaNaziv.'</h5>
+                    
+                </div>
+            </div>
+        </a>';
     }
     $sHtml .= "</ul>";
     return $sHtml;
 }
 
+/*
+function daj_predmete($slug, $slugdva)
+{
 
+	$args = array(
+		'posts_per_page' => -1,
+		'post_type' => 'predmet',
+		'post_status' => 'publish',
+		'tax_query' => array(
+			array(
+				'taxonomy' => 'godina',
+
+				'field' => 'slug',
+				'terms' => $slug
+			),
+			array(
+				'taxonomy' => 'semestar',
+
+				'field' => 'slug',
+				'terms' => $slugdva
+			)
+		)
+	);
+	$predmeti = get_posts($args);
+
+	$sHtml = "    <table border='1'>
+					<thead>
+					<tr>
+						<th>Naziv predmeta</th>
+						<th>ECTS </th>
+						<th>Predavanja</th>
+						<th>LV</th>
+						<th>KV</th>
+					</tr>
+					</thead>
+					<tbody>";
+	foreach ($predmeti as $Predmet) {
+		$nPredmetID = $Predmet->ID;
+		$sPredmetUrl = $Predmet->guid;
+		$sPredmetNaziv = $Predmet->post_title;
+		$ects = get_post_meta($nPredmetID, 'ects_bodovi_predmeta', true);
+		if($ects ==""|| $ects == 0 || $ects == NULL) {
+			$ects = "-";
+		}
+		$sp = get_post_meta($nPredmetID, 'sati_predavanja_predmeta', true);
+		if($sp ==""|| $sp == 0 || $sp == NULL) {
+			$sp = "-";
+		}
+		$slv = get_post_meta($nPredmetID, 'sati_labosa_predmeta', true);
+		if($slv ==""|| $slv == 0 || $slv == NULL) {
+			$slv = "-";
+		}
+		$skv = get_post_meta($nPredmetID, 'sati_konstrukcijskih_predmeta', true);
+		if($skv ==""|| $skv == 0 || $skv == NULL) {
+			$skv = "-";
+		}
+		$status = get_post_meta($nPredmetID, 'status_predmeta', true);
+		$sStatusPredmetaZaIspis = "";
+		if($status =="") {
+			$sStatusPredmetaZaIspis = "";
+		}else {
+			if($status == 'izborni'){
+				$sStatusPredmetaZaIspis = "(i)";
+			}
+		}
+
+		$sHtml .= '<tr>
+					<td><a href="' . $sPredmetUrl . '">' . $sPredmetNaziv . ' ' .$sStatusPredmetaZaIspis . '</a></li></td>
+					<td>'.$ects.'</td>
+					<td>'.$sp.'</td>
+					<td>'.$slv.'</td>
+					<td>'.$skv.'</td>
+				   </tr>';
+	}
+	$sHtml .= "</tbody></table>";
+	return $sHtml;
+}
+*/
 
 
 /* Pića */
@@ -207,7 +296,7 @@ function registriraj_pice_cpt() {
         'show_ui' => true,
         'show_in_menu' => true,
         'menu_position' => 5,
-        'menu_icon' => 'dashicons-groups',
+        'menu_icon' => 'dashicons-coffee',
         'show_in_admin_bar' => true,
         'show_in_nav_menus' => true,
         'can_export' => false,
@@ -258,6 +347,41 @@ function registriraj_taksonomiju_pice_vrsta() {
 }
 add_action( 'init', 'registriraj_taksonomiju_pice_vrsta', 0 );
 
+function daj_pice( $slug )
+{
+    $args = array(
+		'posts_per_page' => -1,
+		'post_type' => 'pice',
+		'post_status' => 'publish',
+		'tax_query' => array(
+		array(
+		'taxonomy' => 'pice_vrsta',
+		'field' => 'slug',
+		'terms' => $slug
+    )));
+    $piceM = get_posts( $args );
+    $sHtml = "<ul class='pice-item-ul'>";
+    foreach ($piceM as $pice)
+    {
+        $nPiceId = $pice->ID;
+		$sPiceUrl = $pice->guid;
+        $sPiceNaziv = $pice->post_title;
+        $sPiceImg = get_the_post_thumbnail_url($nPiceId);
+
+        $sHtml .= '
+        <a href="'.$sPiceUrl.'">
+            <div class="card">
+                <img class="card-img-top" src="'.$sPiceImg.'" alt="Card image cap">
+                <div class="card-body">
+                    <h5 class="card-title">'.$sPiceNaziv.'</h5>
+                    
+                </div>
+            </div>
+        </a>';
+    }
+    $sHtml .= "</ul>";
+    return $sHtml;
+}
 
 /* Vijesti */
 function registriraj_vijest_cpt() {
@@ -300,7 +424,7 @@ function registriraj_vijest_cpt() {
         'show_ui' => true,
         'show_in_menu' => true,
         'menu_position' => 5,
-        'menu_icon' => 'dashicons-groups',
+        'menu_icon' => 'dashicons-analytics',
         'show_in_admin_bar' => true,
         'show_in_nav_menus' => true,
         'can_export' => false,
@@ -351,6 +475,42 @@ function registriraj_taksonomiju_vijest_tip() {
 }
 add_action( 'init', 'registriraj_taksonomiju_vijest_tip', 0 );
 
+
+function daj_vijest( $slug )
+{
+    $args = array(
+		'posts_per_page' => -1,
+		'post_type' => 'vijest',
+		'post_status' => 'publish',
+		'tax_query' => array(
+		array(
+		'taxonomy' => 'vijest_tip',
+		'field' => 'slug',
+		'terms' => $slug
+    )));
+    $vijestM = get_posts( $args );
+    $sHtml = "<ul class='vijest-item-ul'>";
+    foreach ($vijestM as $vijest)
+    {
+        $nVijestId = $vijest->ID;
+		$sVijestUrl = $vijest->guid;
+        $sVijestNaziv = $vijest->post_title;
+        $sVijestImg = get_the_post_thumbnail_url($nVijestId);
+
+        $sHtml .= '
+        <a href="'.$sVijestUrl.'">
+            <div class="card">
+                <img class="card-img-top" src="'.$sVijestImg.'" alt="Card image cap">
+                <div class="card-body">
+                    <h5 class="card-title">'.$sVijestNaziv.'</h5>
+                    
+                </div>
+            </div>
+        </a>';
+    }
+    $sHtml .= "</ul>";
+    return $sHtml;
+}
 
 /* Zaposlenici */
 function registriraj_zaposlenik_cpt() {
@@ -445,6 +605,42 @@ function registriraj_taksonomiju_zaposlenik_titula() {
 add_action( 'init', 'registriraj_taksonomiju_zaposlenik_titula', 0 );
 
 
+function daj_zaposlenika( $slug )
+{
+    $args = array(
+		'posts_per_page' => -1,
+		'post_type' => 'zaposlenik',
+		'post_status' => 'publish',
+		'tax_query' => array(
+		array(
+		'taxonomy' => 'zaposlenik_titula',
+		'field' => 'slug',
+		'terms' => $slug
+    )));
+    $zaposlenikM = get_posts( $args );
+    $sHtml = "<ul class='zaposlenik-item-ul'>";
+    foreach ($zaposlenikM as $zaposlenik)
+    {
+        $nZaposlenikId = $zaposlenik->ID;
+		$sZaposlenikUrl = $zaposlenik->guid;
+        $sZaposlenikNaziv = $zaposlenik->post_title;
+        $sZaposlenikImg = get_the_post_thumbnail_url($nZaposlenikId);
+
+        $sHtml .= '
+        <a href="'.$sZaposlenikUrl.'">
+            <div class="card">
+                <img class="card-img-top" src="'.$sZaposlenikImg.'" alt="Card image cap">
+                <div class="card-body">
+                    <h5 class="card-title">'.$sZaposlenikNaziv.'</h5>
+                    
+                </div>
+            </div>
+        </a>';
+    }
+    $sHtml .= "</ul>";
+    return $sHtml;
+}
+
 /* Meniji */
 function registriraj_zaposlenik_meniji_cpt() {
     $labels = array(
@@ -486,7 +682,7 @@ function registriraj_zaposlenik_meniji_cpt() {
         'show_ui' => true,
         'show_in_menu' => true,
         'menu_position' => 5,
-        'menu_icon' => 'dashicons-groups',
+        'menu_icon' => 'dashicons-food',
         'show_in_admin_bar' => true,
         'show_in_nav_menus' => true,
         'can_export' => false,
@@ -537,3 +733,39 @@ function registriraj_taksonomiju_meni_vrsta() {
 }
 add_action( 'init', 'registriraj_taksonomiju_meni_vrsta', 0 );
 
+
+function daj_meni( $slug )
+{
+    $args = array(
+		'posts_per_page' => -1,
+		'post_type' => 'meni',
+		'post_status' => 'publish',
+		'tax_query' => array(
+		array(
+		'taxonomy' => 'meni_vrsta',
+		'field' => 'slug',
+		'terms' => $slug
+    )));
+    $meniM = get_posts( $args );
+    $sHtml = "<ul class='meni-item-ul'>";
+    foreach ($meniM as $meni)
+    {
+        $nMeniId = $meni->ID;
+		$sMeniUrl = $meni->guid;
+        $sMeniNaziv = $meni->post_title;
+        $sMeniImg = get_the_post_thumbnail_url($nMeniId);
+
+        $sHtml .= '
+        <a href="'.$sMeniUrl.'">
+            <div class="card">
+                <img class="card-img-top" src="'.$sMeniImg.'" alt="Card image cap">
+                <div class="card-body">
+                    <h5 class="card-title">'.$sMeniNaziv.'</h5>
+                    
+                </div>
+            </div>
+        </a>';
+    }
+    $sHtml .= "</ul>";
+    return $sHtml;
+}
