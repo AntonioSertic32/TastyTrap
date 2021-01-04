@@ -166,7 +166,6 @@ function daj_hranu( $slug )
                 <img class="card-img-top" src="'.$sHranaImg.'" alt="Card image cap">
                 <div class="card-body">
                     <h5 class="card-title">'.$sHranaNaziv.'</h5>
-                    
                 </div>
             </div>
         </a>';
@@ -215,7 +214,7 @@ function daj_predmete($slug, $slugdva)
 		$nPredmetID = $Predmet->ID;
 		$sPredmetUrl = $Predmet->guid;
 		$sPredmetNaziv = $Predmet->post_title;
-		$ects = get_post_meta($nPredmetID, 'ects_bodovi_predmeta', true);
+		$ects = get_post_meta($nPredmetID, 'kalorije', true);
 		if($ects ==""|| $ects == 0 || $ects == NULL) {
 			$ects = "-";
 		}
@@ -769,3 +768,335 @@ function daj_meni( $slug )
     $sHtml .= "</ul>";
     return $sHtml;
 }
+
+
+
+
+// ------------------------------ >>
+// ------------------------------------ >>
+
+// NUTRITIVNE VRIJEDNOSTI
+
+// ------------------------------------ >>
+// ------------------------------ >>
+
+function add_meta_box_nutritivna_vrijednost()
+{
+    add_meta_box( 'hrana_kalorije', 'Kalorije', 'html_meta_box_kalorije', 'hrana');
+    add_meta_box( 'hrana_proteini', 'Proteini', 'html_meta_box_proteini', 'hrana');
+    add_meta_box( 'hrana_ugljikohidrati', 'Ugljikohi', 'html_meta_box_ugljikohidrati', 'hrana');
+    add_meta_box( 'hrana_masti', 'Masti', 'html_meta_box_masti', 'hrana');
+
+    add_meta_box( 'pice_kalorije', 'Kalorije', 'html_meta_box_kalorije', 'pice');
+    add_meta_box( 'pice_proteini', 'Proteini', 'html_meta_box_proteini', 'pice');
+    add_meta_box( 'pice_ugljikohidrati', 'Ugljikohi', 'html_meta_box_ugljikohidrati', 'pice');
+    add_meta_box( 'pice_masti', 'Masti', 'html_meta_box_masti', 'pice');
+
+    add_meta_box( 'meni_hrana', 'Hrana', 'html_meta_box_hrana', 'meni');
+    add_meta_box( 'meni_pice', 'Pice', 'html_meta_box_pice', 'meni');
+}
+
+
+// KALORIJE
+function html_meta_box_kalorije($post)
+{
+    wp_nonce_field('spremi_kalorije', 'kalorije_nonce');
+    $kalorije = get_post_meta($post->ID, 'kalorije', true);
+    echo '
+    <div>
+        <div>
+            <label for="kalorije">Kalorije: </label>
+            <input type="number" step="any" id="kalorije" name="kalorije" value="'.$kalorije.'" />
+        </div>
+        <br/>
+    </div>';
+}
+function spremi_kalorije($post_id)
+{
+    $is_autosave = wp_is_post_autosave( $post_id );
+    $is_revision = wp_is_post_revision( $post_id );
+    $is_valid_kalorije_nonce = ( isset( $_POST[ 'kalorije_nonce' ] ) &&
+        wp_verify_nonce($_POST[ 'kalorije_nonce' ], basename( __FILE__ ) ) ) ? 'true' : 'false';
+    if ( $is_autosave || $is_revision || !$is_valid_kalorije_nonce)
+    {
+        return;
+    }
+    if(!empty($_POST['kalorije']))
+    {
+        update_post_meta($post_id, 'kalorije',
+        $_POST['kalorije']);
+    }
+    else
+    {
+        delete_post_meta($post_id, 'kalorije');
+    }
+}
+
+// PROTEINI
+function html_meta_box_proteini($post)
+{
+    wp_nonce_field('spremi_proteine', 'proteini_nonce');
+    $proteini = get_post_meta($post->ID, 'proteini', true);
+    echo '
+    <div>
+        <div>
+            <label for="proteini">Proteini: </label>
+            <input type="number" step="any" id="proteini" name="proteini" value="'.$proteini.'" />
+        </div>
+        <br/>
+    </div>';
+}
+function spremi_proteine($post_id)
+{
+    $is_autosave = wp_is_post_autosave( $post_id );
+    $is_revision = wp_is_post_revision( $post_id );
+    $is_valid_proteini_nonce = ( isset( $_POST[ 'proteini_nonce' ] ) &&
+        wp_verify_nonce($_POST[ 'proteini_nonce' ], basename( __FILE__ ) ) ) ? 'true' : 'false';
+    if ( $is_autosave || $is_revision || !$is_valid_proteini_nonce)
+    {
+        return;
+    }
+    if(!empty($_POST['proteini']))
+    {
+        update_post_meta($post_id, 'proteini',
+        $_POST['proteini']);
+    }
+    else
+    {
+        delete_post_meta($post_id, 'proteini');
+    }
+}
+
+// UGLJIKOHIDRATI
+function html_meta_box_ugljikohidrati($post)
+{
+    wp_nonce_field('spremi_ugljikohidrate', 'ugljikohidrati_nonce');
+    $ugljikohidrati = get_post_meta($post->ID, 'ugljikohidrati', true);
+    echo '
+    <div>
+        <div>
+            <label for="ugljikohidrati">Ugljikohidrati: </label>
+            <input type="number" step="any" id="ugljikohidrati" name="ugljikohidrati" value="'.$ugljikohidrati.'" />
+        </div>
+        <br/>
+    </div>';
+}
+function spremi_ugljikohidrate($post_id)
+{
+    $is_autosave = wp_is_post_autosave( $post_id );
+    $is_revision = wp_is_post_revision( $post_id );
+    $is_valid_ugljikohidrati_nonce = ( isset( $_POST[ 'ugljikohidrati_nonce' ] ) &&
+        wp_verify_nonce($_POST[ 'ugljikohidrati_nonce' ], basename( __FILE__ ) ) ) ? 'true' : 'false';
+    if ( $is_autosave || $is_revision || !$is_valid_ugljikohidrati_nonce)
+    {
+        return;
+    }
+    if(!empty($_POST['ugljikohidrati']))
+    {
+        update_post_meta($post_id, 'ugljikohidrati',
+        $_POST['ugljikohidrati']);
+    }
+    else
+    {
+        delete_post_meta($post_id, 'ugljikohidrati');
+    }
+}
+
+// MASTI
+function html_meta_box_masti($post)
+{
+    wp_nonce_field('spremi_masti', 'masti_nonce');
+    $masti = get_post_meta($post->ID, 'masti', true);
+    echo '
+    <div>
+        <div>
+            <label for="masti">Masti: </label>
+            <input type="number" step="any" id="masti" name="masti" value="'.$masti.'" />
+        </div>
+        <br/>
+    </div>';
+}
+function spremi_masti($post_id)
+{
+    $is_autosave = wp_is_post_autosave( $post_id );
+    $is_revision = wp_is_post_revision( $post_id );
+    $is_valid_masti_nonce = ( isset( $_POST[ 'masti_nonce' ] ) &&
+        wp_verify_nonce($_POST[ 'masti_nonce' ], basename( __FILE__ ) ) ) ? 'true' : 'false';
+    if ( $is_autosave || $is_revision || !$is_valid_masti_nonce)
+    {
+        return;
+    }
+    if(!empty($_POST['masti']))
+    {
+        update_post_meta($post_id, 'masti',
+        $_POST['masti']);
+    }
+    else
+    {
+        delete_post_meta($post_id, 'masti');
+    }
+}
+
+
+add_action( 'add_meta_boxes', 'add_meta_box_nutritivna_vrijednost' );
+add_action( 'save_post', 'spremi_kalorije' );
+add_action( 'save_post', 'spremi_proteine' );
+add_action( 'save_post', 'spremi_ugljikohidrate' );
+add_action( 'save_post', 'spremi_masti' );
+
+// Hrana
+
+function html_meta_box_hrana($post)
+{
+    wp_nonce_field('spremi_hranu', 'hrana_menija_nonce');
+    //dohvaćanje meta vrijednosti
+    $popisjela = get_post_meta($post->ID, 'hrana_menija', true);
+    echo '
+    <div>
+    <div>
+    <label for="hrana_menija">Hrana: </label>
+    <select id="hrana_menija" name="hrana_menija[]" multiple>
+            '.
+            $args = array(
+            'posts_per_page' => -1,
+            'post_type' => 'hrana',
+            'post_status' => 'publish'
+            );
+            $jela = get_posts( $args );
+            $sHtml = "";
+
+            foreach ($jela as $jelo)
+                {
+                    $sjeloNaziv = $jelo->post_title;
+                    $jelaArray = explode(', ', $popisjela);
+                    $selected = "";
+                    foreach ($jelaArray as $ojelo) 
+                    {
+                        
+                        if ($ojelo == $sjeloNaziv)
+                        {
+                            $selected = "selected";
+                        }
+                    }
+
+                    
+                    $sHtml .= '<option value="'.$sjeloNaziv.'" '. $selected .'>'.$sjeloNaziv.'</option>';
+                }
+            echo $sHtml
+            .'
+    </select>
+    </div>
+    <br/>
+    </div>';
+}
+
+function spremi_hranu($post_id)
+{
+    $is_autosave = wp_is_post_autosave( $post_id );
+    $is_revision = wp_is_post_revision( $post_id );
+    $is_valid_nonce_jelo_menija = ( isset( $_POST[ 'hrana_menija_nonce' ] ) &&
+        wp_verify_nonce($_POST[ 'hrana_menija_nonce' ], basename( __FILE__ ) ) ) ? 'true' : 'false';
+
+    if ( $is_autosave || $is_revision || !$is_valid_nonce_jelo_menija)
+    {
+        return;
+    }
+    if(!empty($_POST['hrana_menija']))
+    {
+        if (is_array($_POST[ 'hrana_menija' ]))
+        {
+            $jela = implode(", ", $_POST[ 'hrana_menija' ]);
+        }
+        else
+        {
+            $jela = $_POST[ 'hrana_menija' ];
+        }
+        update_post_meta($post_id, 'hrana_menija',
+        $jela);
+    }
+    else
+    {
+        delete_post_meta($post_id, 'hrana_menija');
+    }
+}
+
+add_action( 'save_post', 'spremi_hranu' );
+
+
+// Pice
+
+function html_meta_box_pice($post)
+{
+    wp_nonce_field('spremi_pice', 'pice_menija_nonce');
+    //dohvaćanje meta vrijednosti
+    $popispica = get_post_meta($post->ID, 'pice_menija', true);
+    echo '
+    <div>
+    <div>
+    <label for="pice_menija">Pice: </label>
+    <select id="pice_menija" name="pice_menija[]" multiple>
+            '.
+            $args = array(
+            'posts_per_page' => -1,
+            'post_type' => 'pice',
+            'post_status' => 'publish'
+            );
+            $pica = get_posts( $args );
+            $sHtml = "";
+
+            foreach ($pica as $pice)
+                {
+                    $spiceNaziv = $pice->post_title;
+                    $picaArray = explode(', ', $popispica);
+                    $selected = "";
+                    foreach ($picaArray as $opice) 
+                    {
+                        
+                        if ($opice == $spiceNaziv)
+                        {
+                            $selected = "selected";
+                        }
+                    }
+
+                    
+                    $sHtml .= '<option value="'.$spiceNaziv.'" '. $selected .'>'.$spiceNaziv.'</option>';
+                }
+            echo $sHtml
+            .'
+    </select>
+    </div>
+    <br/>
+    </div>';
+}
+
+function spremi_pice($post_id)
+{
+    $is_autosave = wp_is_post_autosave( $post_id );
+    $is_revision = wp_is_post_revision( $post_id );
+    $is_valid_nonce_pice_menija = ( isset( $_POST[ 'pice_menija_nonce' ] ) &&
+        wp_verify_nonce($_POST[ 'pice_menija_nonce' ], basename( __FILE__ ) ) ) ? 'true' : 'false';
+
+    if ( $is_autosave || $is_revision || !$is_valid_nonce_pice_menija)
+    {
+        return;
+    }
+    if(!empty($_POST['pice_menija']))
+    {
+        if (is_array($_POST[ 'pice_menija' ]))
+        {
+            $pica = implode(", ", $_POST[ 'pice_menija' ]);
+        }
+        else
+        {
+            $pica = $_POST[ 'pice_menija' ];
+        }
+        update_post_meta($post_id, 'pice_menija',
+        $pica);
+    }
+    else
+    {
+        delete_post_meta($post_id, 'pice_menija');
+    }
+}
+
+add_action( 'save_post', 'spremi_pice' );

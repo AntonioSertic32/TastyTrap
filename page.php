@@ -20,6 +20,7 @@ echo '<header class="masthead" style="background-image: url('.$sImageUrl.')">
 ?>
 
 <?php
+echo '<div class="page"><div class="container"> <br/>';
     if ( have_posts() )
     {
         while ( have_posts() )
@@ -41,6 +42,7 @@ echo '<header class="masthead" style="background-image: url('.$sImageUrl.')">
                 </div>';
         }
     }
+echo '<br/><br/><br/></div></div>';
 ?>
 
 
