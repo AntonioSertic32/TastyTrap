@@ -23,7 +23,6 @@ if ( have_posts() )
                     echo '
                     <div class="zaposlenik-container">
                         <div class="zaposlenik-container-slika">
-                          <div class="pozadinska_boja"></div>
                           <img src="'.$sIstaknutaSlika.'">
                         </div>
                         <div class="container" style="text-align:center;">

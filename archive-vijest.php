@@ -11,7 +11,7 @@ echo '<header class="masthead" style="background-image: url('.$sImageUrl.')">
           <div class="col-lg-10 col-md-10 mx-auto">
             <div class="site-heading">
               <h1>Vijesti</h1>
-              <span class="subheading">Najnovije vijesti!</span>
+              <span class="subheading">Budite u tijeku s najnovijim vijestima iz Tasty Trapa!</span>
             </div>
           </div>
         </div>

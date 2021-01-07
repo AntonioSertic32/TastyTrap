@@ -20,12 +20,14 @@ echo '<header class="masthead" style="background-image: url('.$sImageUrl.')">
 ?>
 
 <?php
-echo '<div class="page"><div class="container"> <br/>';
+if($post->ID == 320) {
+    echo '<div class="page"><div> <br/>';
     if ( have_posts() )
     {
         while ( have_posts() )
         {
             the_post();
+            
             $sIstaknutaSlika = "";
             if( get_the_post_thumbnail_url($post->ID) )
             {
@@ -42,7 +44,34 @@ echo '<div class="page"><div class="container"> <br/>';
                 </div>';
         }
     }
-echo '<br/><br/><br/></div></div>';
+  echo '<br/><br/><br/></div></div>';
+}
+else{
+  echo '<div class="page"><div class="container"> <br/>';
+      if ( have_posts() )
+      {
+          while ( have_posts() )
+          {
+              the_post();
+              
+              $sIstaknutaSlika = "";
+              if( get_the_post_thumbnail_url($post->ID) )
+              {
+                  $sIstaknutaSlika = get_the_post_thumbnail_url($post->ID);
+              }
+              else
+              {
+                  $sIstaknutaSlika = get_template_directory_uri(). '/img/home-bg.jpg';
+              }
+              echo '<div class="row">
+                      <div class="col-md-3"></div>
+                      <div class="col-md-6" style="text-align:;">'.the_content().'</div>
+                      <div class="col-md-3"></div>
+                  </div>';
+          }
+      }
+  echo '<br/><br/><br/></div></div>';
+  }
 ?>
 
 

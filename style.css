@@ -93,6 +93,7 @@ tr th:first-child {
 
 table {
   width: 95% !important;
+  margin-bottom: 100px !important ;
 }
 
 table tr {
@@ -330,6 +331,7 @@ footer {
   padding: 0;
   padding-left: 100px;
   padding-right: 100px;
+  column-gap: 50px;
 }
 
 .vijest-item-ul .card {
@@ -343,11 +345,6 @@ footer {
 }
 .vijest-item-ul .card:hover {
   background-color: #fff;
-}
-
-.vijest-item-ul .card img {
-  width: 70%;
-  height: 70%;
 }
 
 /* ------------------ */
@@ -571,7 +568,6 @@ table tr {
   flex-direction: row;
   justify-content: center;
   column-gap: 50px;
-  padding-bottom: 100px;
 }
 
 .meni_container .hrana-meni {
@@ -580,5 +576,166 @@ table tr {
   column-gap: 50px;
 }
 
-.meni_container .pice-meni {
+.meni_container .card:hover {
+  background-color: #d0d3dc;
+}
+
+/* ZAPOSLENICI */
+
+#metaslider-id-513 {
+  margin-top: 70px;
+}
+
+.caption-wrap {
+  width: 40% !important;
+  border-radius: 30px;
+  margin-left: 5% !important;
+  max-height: 230px !important;
+  max-width: unset !important;
+}
+.caption-wrap .caption {
+  font-size: 24px;
+  line-height: 40px;
+}
+
+.zaposlenici-kontejner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-bottom: 150px;
+}
+
+.uzmcdonaldsmogu {
+  font-size: 52px;
+  margin-top: 40px;
+  margin-bottom: 80px;
+}
+
+.boxes {
+  display: flex;
+  flex-direction: row;
+  column-gap: 60px;
+  width: 80%;
+}
+
+.box {
+  flex: 1 1 0;
+  width: 0;
+}
+
+.box h3 {
+  font-weight: bold;
+  margin-bottom: 30px;
+}
+
+/* SINGLE ZAPOLSENIK */
+
+.zaposlenik-container-slika {
+  width: 60%;
+  margin: auto;
+}
+
+.zaposlenik-container-slika img {
+  width: 100%;
+}
+.zaposlenik-container .container {
+  text-align: center;
+  margin-top: 50px;
+  padding-bottom: 150px;
+}
+.zaposlenik-container .container h3 {
+  font-size: 42px;
+  margin-bottom: 30px;
+}
+
+/* KONTAKT */
+#map {
+  position: relative;
+  overflow: hidden;
+  width: 60%;
+  margin: 50px;
+  height: 570px;
+}
+
+.main-container {
+  width: 40%;
+  margin: 50px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.kontakt-container,
+.email-container,
+.locattion-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.kontakt-container h3,
+.email-container h3,
+.locattion-container h3 {
+  font-size: 42px;
+  margin-bottom: 30px;
+  width: 100%;
+  margin-top: 30px;
+  text-align: center;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #bbb;
+}
+
+.kontakt-container .kontakt,
+.email-container .email,
+.locattion-container .lokacija {
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+/* SINGLE VIJEST */
+
+.vijest-container-slika {
+  width: 60%;
+  margin: auto;
+}
+
+.vijest-container-slika img {
+  width: 100%;
+}
+.vijest-container .container {
+  text-align: center;
+  margin-top: 50px;
+  padding-bottom: 150px;
+}
+.vijest-container .container h3 {
+  font-size: 42px;
+  margin-bottom: 30px;
+}
+
+.current-menu-item {
+  background-color: #696969;
+}
+
+.navbar-brand {
+  padding-left: 10px !important;
+}
+.navbar-logo {
+  width: 52px;
+}
+
+.pocetna-container-kontakt {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  column-gap: 200px;
+}
+
+.pocetna-container-kontakt h3 {
+  border-bottom: 1px solid #bbb;
+  margin-bottom: 15px;
+  padding-bottom: 15px;
+}
+
+.pocetna-container-kontakt img {
+  width: auto !important;
 }

@@ -1100,3 +1100,78 @@ function spremi_pice($post_id)
 }
 
 add_action( 'save_post', 'spremi_pice' );
+
+
+function daj_zadnje_vijesti() 
+{
+    $args = array(
+		'posts_per_page' => -1,
+		'post_type' => 'vijest',
+		'post_status' => 'publish',
+		'tax_query' => array(
+    ));
+    $vijestM = get_posts( $args );
+    $sHtml = "<ul class='vijest-item-ul'>";
+    $brojac = 0;
+    foreach ($vijestM as $vijest)
+    {
+        $brojac++;
+        if($brojac == 4) {
+        break;
+        }
+        $nVijestId = $vijest->ID;
+		$sVijestUrl = $vijest->guid;
+        $sVijestNaziv = $vijest->post_title;
+        $sVijestImg = get_the_post_thumbnail_url($nVijestId);
+
+        $sHtml .= '
+        <a href="'.$sVijestUrl.'">
+            <div class="card">
+                <img class="card-img-top" src="'.$sVijestImg.'" alt="Card image cap">
+                <div class="card-body">
+                    <h5 class="card-title">'.$sVijestNaziv.'</h5>
+                    
+                </div>
+            </div>
+        </a>';
+    }
+    $sHtml .= "</ul>";
+    return $sHtml;
+}
+
+function daj_zadnje_menije()
+{
+    $args = array(
+		'posts_per_page' => -1,
+		'post_type' => 'meni',
+		'post_status' => 'publish',
+		'tax_query' => array(
+    ));
+    $meniM = get_posts( $args );
+    $sHtml = "<ul class='meni-item-ul'>";
+    $brojac = 0;
+    foreach ($meniM as $meni)
+    {
+        $brojac++;
+        if($brojac == 3) {
+        break;
+        }
+        $nMeniId = $meni->ID;
+		$sMeniUrl = $meni->guid;
+        $sMeniNaziv = $meni->post_title;
+        $sMeniImg = get_the_post_thumbnail_url($nMeniId);
+
+        $sHtml .= '
+        <a href="'.$sMeniUrl.'">
+            <div class="card">
+                <img class="card-img-top" src="'.$sMeniImg.'" alt="Card image cap">
+                <div class="card-body">
+                    <h5 class="card-title">'.$sMeniNaziv.'</h5>
+                    
+                </div>
+            </div>
+        </a>';
+    }
+    $sHtml .= "</ul>";
+    return $sHtml;
+}

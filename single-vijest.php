@@ -23,11 +23,10 @@ if ( have_posts() )
                     echo '
                     <div class="vijest-container">
                         <div class="vijest-container-slika">
-                          <div class="pozadinska_boja"></div>
                           <img src="'.$sIstaknutaSlika.'">
                         </div>
                         <div class="container" style="text-align:center;">
-                        <h3>'.$oVijestVrsta.'</h3>
+                        <h3>'. get_the_title( $post->ID ) .'</h3>
                         '.nl2br($post->post_content).'
                         </div>
                       </div>';
