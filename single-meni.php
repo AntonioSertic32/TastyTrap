@@ -7,6 +7,16 @@
   $global_proteini = 0.0;
   $global_ugljikohidrati = 0.0;
   $global_masti = 0.0;
+
+  $hrana_kalorije = 0.0;
+  $hrana_proteini = 0.0;
+  $hrana_ugljikohidrati = 0.0;
+  $hrana_masti = 0.0;
+
+  $pice_kalorije = 0.0;
+  $pice_proteini = 0.0;
+  $pice_ugljikohidrati = 0.0;
+  $pice_masti = 0.0;
 ?>
 
 <?
@@ -79,21 +89,25 @@ if ( have_posts() )
                   $kalorije = get_post_meta($jelo->ID, 'kalorije', true);
                   if(is_numeric($kalorije)) {
                     $global_kalorije += $kalorije;
+                    $hrana_kalorije += $kalorije;
                   }
 
                   $proteini = get_post_meta($jelo->ID, 'proteini', true);
                   if(is_numeric($proteini)) {
                     $global_proteini += $proteini;
+                    $hrana_proteini += $proteini;
                   }
 
                   $ugljikohidrati = get_post_meta($jelo->ID, 'ugljikohidrati', true);
                   if(is_numeric($ugljikohidrati)) {
                     $global_ugljikohidrati += $ugljikohidrati;
+                    $hrana_ugljikohidrati += $ugljikohidrati;
                   }
 
                   $masti = get_post_meta($jelo->ID, 'masti', true);
                   if(is_numeric($masti)) {
                     $global_masti += $masti;
+                    $hrana_masti += $masti;
                   }
 
                   $sHtml .= '
@@ -163,21 +177,25 @@ if ( have_posts() )
                       $kalorije = get_post_meta($pice->ID, 'kalorije', true);
                       if(is_numeric($kalorije)) {
                         $global_kalorije += $kalorije;
+                        $pice_kalorije += $kalorije;
                       }
 
                       $proteini = get_post_meta($pice->ID, 'proteini', true);
                       if(is_numeric($proteini)) {
                         $global_proteini += $proteini;
+                        $pice_proteini += $proteini;
                       }
 
                       $ugljikohidrati = get_post_meta($pice->ID, 'ugljikohidrati', true);
                       if(is_numeric($ugljikohidrati)) {
                         $global_ugljikohidrati += $ugljikohidrati;
+                        $pice_ugljikohidrati += $ugljikohidrati;
                       }
 
                       $masti = get_post_meta($pice->ID, 'masti', true);
                       if(is_numeric($masti)) {
                         $global_masti += $masti;
+                        $pice_masti += $masti;
                       }
 
                       $sHtml .= '
@@ -199,6 +217,7 @@ if ( have_posts() )
               <table class="table table-bordered">
                 <thead class="thead-dark">
                   <tr>
+                    <th scope="col" style="width: 200px;"></th>
                     <th scope="col">Kalorije</th>
                     <th scope="col">Proteini</th>
                     <th scope="col">Ugljikohidrati</th>
@@ -206,12 +225,29 @@ if ( have_posts() )
                   </tr>
                 </thead>
                 <tbody>
+
                   <tr>
+                    <td>Hrana</td>
+                    <td>'.$hrana_kalorije.'Kcal</td>
+                    <td>'.$hrana_proteini.'Kcal</td>
+                    <td>'.$hrana_ugljikohidrati.'Kcal</td>
+                    <td>'.$hrana_masti.'Kcal</td>
+                  </tr>
+                  <tr>
+                    <td>Piće</td>
+                    <td>'.$pice_kalorije.'Kcal</td>
+                    <td>'.$pice_proteini.'Kcal</td>
+                    <td>'.$pice_ugljikohidrati.'Kcal</td>
+                    <td>'.$pice_masti.'Kcal</td>
+                  </tr>
+                  <tr style="font-weight:bold">
+                    <td>Sveukupno</td>
                     <td>'.$global_kalorije.'Kcal</td>
                     <td>'.$global_proteini.'Kcal</td>
                     <td>'.$global_ugljikohidrati.'Kcal</td>
                     <td>'.$global_masti.'Kcal</td>
                   </tr>
+
                 </tbody>
               </table>
             </div>';

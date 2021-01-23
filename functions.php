@@ -25,6 +25,47 @@ if ( ! function_exists( 'inicijaliziraj_temu' ) )
 }
 add_action( 'after_setup_theme', 'inicijaliziraj_temu' );
 
+function aktiviraj_sidebar()
+{
+	register_sidebar(
+		array (
+			'name' => "Footer sidebar 1",
+			'id' => 'footer-sidebar1',
+			'description' => "Footer sidebar 1",
+			'before_widget' => '<div class="footer-sidebar">',
+			'after_widget' => "</div>",
+			'before_title' => '<h4 class="footer-sidebar-title">',
+			'after_title' => '</h4>',
+		)
+	);
+
+	register_sidebar(
+		array (
+			'name' => "Footer sidebar 2",
+			'id' => 'footer-sidebar2',
+			'description' => "Footer sidebar 2",
+			'before_widget' => '<div class="footer-sidebar">',
+			'after_widget' => "</div>",
+			'before_title' => '<h4 class="footer-sidebar-title">',
+			'after_title' => '</h4>',
+		)
+	);
+
+	register_sidebar(
+		array (
+			'name' => "Footer sidebar 3",
+			'id' => 'footer-sidebar3',
+			'description' => "Footer sidebar 3",
+			'before_widget' => '<div class="footer-sidebar">',
+			'after_widget' => "</div>",
+			'before_title' => '<h4 class="footer-sidebar-title">',
+			'after_title' => '</h4>',
+		)
+	);
+
+}
+add_action( 'widgets_init', 'aktiviraj_sidebar' );
+
 //UCITAVANJE CSS DATOTEKA
 function UcitajCssTeme()
 {	
@@ -173,86 +214,6 @@ function daj_hranu( $slug )
     $sHtml .= "</ul>";
     return $sHtml;
 }
-
-/*
-function daj_predmete($slug, $slugdva)
-{
-
-	$args = array(
-		'posts_per_page' => -1,
-		'post_type' => 'predmet',
-		'post_status' => 'publish',
-		'tax_query' => array(
-			array(
-				'taxonomy' => 'godina',
-
-				'field' => 'slug',
-				'terms' => $slug
-			),
-			array(
-				'taxonomy' => 'semestar',
-
-				'field' => 'slug',
-				'terms' => $slugdva
-			)
-		)
-	);
-	$predmeti = get_posts($args);
-
-	$sHtml = "    <table border='1'>
-					<thead>
-					<tr>
-						<th>Naziv predmeta</th>
-						<th>ECTS </th>
-						<th>Predavanja</th>
-						<th>LV</th>
-						<th>KV</th>
-					</tr>
-					</thead>
-					<tbody>";
-	foreach ($predmeti as $Predmet) {
-		$nPredmetID = $Predmet->ID;
-		$sPredmetUrl = $Predmet->guid;
-		$sPredmetNaziv = $Predmet->post_title;
-		$ects = get_post_meta($nPredmetID, 'kalorije', true);
-		if($ects ==""|| $ects == 0 || $ects == NULL) {
-			$ects = "-";
-		}
-		$sp = get_post_meta($nPredmetID, 'sati_predavanja_predmeta', true);
-		if($sp ==""|| $sp == 0 || $sp == NULL) {
-			$sp = "-";
-		}
-		$slv = get_post_meta($nPredmetID, 'sati_labosa_predmeta', true);
-		if($slv ==""|| $slv == 0 || $slv == NULL) {
-			$slv = "-";
-		}
-		$skv = get_post_meta($nPredmetID, 'sati_konstrukcijskih_predmeta', true);
-		if($skv ==""|| $skv == 0 || $skv == NULL) {
-			$skv = "-";
-		}
-		$status = get_post_meta($nPredmetID, 'status_predmeta', true);
-		$sStatusPredmetaZaIspis = "";
-		if($status =="") {
-			$sStatusPredmetaZaIspis = "";
-		}else {
-			if($status == 'izborni'){
-				$sStatusPredmetaZaIspis = "(i)";
-			}
-		}
-
-		$sHtml .= '<tr>
-					<td><a href="' . $sPredmetUrl . '">' . $sPredmetNaziv . ' ' .$sStatusPredmetaZaIspis . '</a></li></td>
-					<td>'.$ects.'</td>
-					<td>'.$sp.'</td>
-					<td>'.$slv.'</td>
-					<td>'.$skv.'</td>
-				   </tr>';
-	}
-	$sHtml .= "</tbody></table>";
-	return $sHtml;
-}
-*/
-
 
 /* Pića */
 function registriraj_pice_cpt() {
@@ -772,6 +733,94 @@ function daj_meni( $slug )
 
 
 
+/* Resorani */
+function registriraj_resorani_cpt() {
+    $labels = array(
+        'name' => _x( 'Restorani', 'Post Type General Name', 'vsmti' ),
+        'singular_name' => _x( 'Restoran', 'Post Type Singular Name', 'vsmti' ),
+        'menu_name' => __( 'Restorani', 'vsmti' ),
+        'name_admin_bar' => __( 'Restorani', 'vsmti' ),
+        'archives' => __( 'Restorani arhiva', 'vsmti' ),
+        'attributes' => __( 'Atributi', 'vsmti' ),
+        'parent_item_colon' => __( 'Roditeljski element', 'vsmti' ),
+        'all_items' => __( 'Svi restorani', 'vsmti' ),
+        'add_new_item' => __( 'Dodaj novi restoran', 'vsmti' ),
+        'add_new' => __( 'Dodaj novi', 'vsmti' ),
+        'new_item' => __( 'Novi restoran', 'vsmti' ),
+        'edit_item' => __( 'Uredi restoran', 'vsmti' ),
+        'update_item' => __( 'Ažuriraj restoran', 'vsmti' ),
+        'view_item' => __( 'Pogledaj restoran', 'vsmti' ),
+        'view_items' => __( 'Pogledaj restorane', 'vsmti' ),
+        'search_items' => __( 'Pretraži restorane', 'vsmti' ),
+        'not_found' => __( 'Nije pronađeno', 'vsmti' ),
+        'not_found_in_trash' => __( 'Nije pronađeno u smeću', 'vsmti' ),
+        'featured_image' => __( 'Glavna slika', 'vsmti' ),
+        'set_featured_image' => __( 'Postavi glavnu sliku', 'vsmti' ),
+        'remove_featured_image' => __( 'Ukloni glavnu sliku', 'vsmti' ),
+        'use_featured_image' => __( 'Postavi za glavnu sliku', 'vsmti' ),
+        'insert_into_item' => __( 'Umentni', 'vsmti' ),
+        'uploaded_to_this_item' => __( 'Preneseno', 'vsmti' ),
+        'items_list' => __( 'Lista', 'vsmti' ),
+        'items_list_navigation' => __( 'Navigacija među restoranima', 'vsmti' ),
+        'filter_items_list' => __( 'Filtriranje restorana', 'vsmti' ),
+    );
+    $args = array(
+        'label' => __( 'Restoran', 'vsmti' ),
+        'description' => __( 'Restoran post type', 'vsmti' ),
+        'labels' => $labels,
+        'supports' => array( 'title', 'editor', 'thumbnail', 'revisions' ),
+        'hierarchical' => false,
+        'public' => true,
+        'show_ui' => true,
+        'show_in_menu' => true,
+        'menu_position' => 5,
+        'menu_icon' => 'dashicons-store',
+        'show_in_admin_bar' => true,
+        'show_in_nav_menus' => true,
+        'can_export' => false,
+        'has_archive' => true,
+        'exclude_from_search' => false,
+        'publicly_queryable' => true,
+        'capability_type' => 'page',
+    );
+
+    register_post_type( 'restorani', $args );
+}
+add_action( 'init', 'registriraj_resorani_cpt', 0 );
+
+function daj_restorane()
+{
+    $args = array(
+		'posts_per_page' => -1,
+		'post_type' => 'restorani',
+		'post_status' => 'publish',
+		'tax_query' => array());
+    $Restorani = get_posts( $args );
+
+    $array = array();
+
+    foreach ($Restorani as $restoran)
+    {
+        $restoranId = $restoran->ID;
+		$resoranUrl = $restoran->guid;
+        $restoranNaziv = $restoran->post_title;
+
+        $lat = get_post_meta($restoranId, 'lat', true);
+        $lng = get_post_meta($restoranId, 'lng', true);
+
+        $object = (object) [
+            'lat' => $lat,
+            'lng' => $lng,
+            'naziv_postaje'=> $restoranNaziv,
+            'url'=> $resoranUrl,
+        ];
+
+        array_push($array, $object);
+    }
+    
+    return $array;
+}
+
 // ------------------------------ >>
 // ------------------------------------ >>
 
@@ -794,6 +843,11 @@ function add_meta_box_nutritivna_vrijednost()
 
     add_meta_box( 'meni_hrana', 'Hrana', 'html_meta_box_hrana', 'meni');
     add_meta_box( 'meni_pice', 'Pice', 'html_meta_box_pice', 'meni');
+
+    add_meta_box( 'restoran_adresa', 'Adresa', 'html_meta_box_adresa', 'restorani');
+    add_meta_box( 'restoran_telefon', 'Telefon', 'html_meta_box_telefon', 'restorani');
+    add_meta_box( 'restoran_lat', 'Lat', 'html_meta_box_lat', 'restorani');
+    add_meta_box( 'restoran_lng', 'Lng', 'html_meta_box_lng', 'restorani');
 }
 
 
@@ -936,13 +990,160 @@ function spremi_masti($post_id)
         delete_post_meta($post_id, 'masti');
     }
 }
+ 
+// ADRESA
+function html_meta_box_adresa($post)
+{
+    wp_nonce_field('spremi_adresu', 'adresa_nonce');
+    $adresa = get_post_meta($post->ID, 'adresa', true);
+    echo '
+    <div>
+        <div>
+            <label for="adresa">Adresa: </label>
+            <input type="text" id="adresa" name="adresa" value="'.$adresa.'" />
+        </div>
+        <br/>
+    </div>';
+}
 
+function spremi_adresu($post_id)
+{
+    $is_autosave = wp_is_post_autosave( $post_id );
+    $is_revision = wp_is_post_revision( $post_id );
+    $is_valid_adresa_nonce = ( isset( $_POST[ 'adresa_nonce' ] ) &&
+        wp_verify_nonce($_POST[ 'adresa_nonce' ], basename( __FILE__ ) ) ) ? 'true' : 'false';
+    if ( $is_autosave || $is_revision || !$is_valid_adresa_nonce)
+    {
+        return;
+    }
+    if(!empty($_POST['adresa']))
+    {
+        update_post_meta($post_id, 'adresa',
+        $_POST['adresa']);
+    }
+    else
+    {
+        delete_post_meta($post_id, 'adresa');
+    }
+}
+
+// TELEFON
+function html_meta_box_telefon($post)
+{
+    wp_nonce_field('spremi_telefon', 'telefon_nonce');
+    $telefon = get_post_meta($post->ID, 'telefon', true);
+    echo '
+    <div>
+        <div>
+            <label for="telefon">Telefon: </label>
+            <input type="text" id="telefon" name="telefon" value="'.$telefon.'" />
+        </div>
+        <br/>
+    </div>';
+}
+
+function spremi_telefon($post_id)
+{
+    $is_autosave = wp_is_post_autosave( $post_id );
+    $is_revision = wp_is_post_revision( $post_id );
+    $is_valid_telefon_nonce = ( isset( $_POST[ 'telefon_nonce' ] ) &&
+        wp_verify_nonce($_POST[ 'telefon_nonce' ], basename( __FILE__ ) ) ) ? 'true' : 'false';
+    if ( $is_autosave || $is_revision || !$is_valid_telefon_nonce)
+    {
+        return;
+    }
+    if(!empty($_POST['telefon']))
+    {
+        update_post_meta($post_id, 'telefon',
+        $_POST['telefon']);
+    }
+    else
+    {
+        delete_post_meta($post_id, 'telefon');
+    }
+}
+
+// LAT
+function html_meta_box_lat($post)
+{
+    wp_nonce_field('spremi_lat', 'lat_nonce');
+    $lat = get_post_meta($post->ID, 'lat', true);
+    echo '
+    <div>
+        <div>
+            <label for="lat">Latituda: </label>
+            <input type="text" id="lat" name="lat" value="'.$lat.'" />
+        </div>
+        <br/>
+    </div>';
+}
+
+function spremi_lat($post_id)
+{
+    $is_autosave = wp_is_post_autosave( $post_id );
+    $is_revision = wp_is_post_revision( $post_id );
+    $is_valid_lat_nonce = ( isset( $_POST[ 'lat_nonce' ] ) &&
+        wp_verify_nonce($_POST[ 'lat_nonce' ], basename( __FILE__ ) ) ) ? 'true' : 'false';
+    if ( $is_autosave || $is_revision || !$is_valid_lat_nonce)
+    {
+        return;
+    }
+    if(!empty($_POST['lat']))
+    {
+        update_post_meta($post_id, 'lat',
+        $_POST['lat']);
+    }
+    else
+    {
+        delete_post_meta($post_id, 'lat');
+    }
+}
+
+// LNG
+function html_meta_box_lng($post)
+{
+    wp_nonce_field('spremi_lng', 'lng_nonce');
+    $lng = get_post_meta($post->ID, 'lng', true);
+    echo '
+    <div>
+        <div>
+            <label for="lng">Longituda: </label>
+            <input type="text" id="lng" name="lng" value="'.$lng.'" />
+        </div>
+        <br/>
+    </div>';
+}
+
+function spremi_lng($post_id)
+{
+    $is_autosave = wp_is_post_autosave( $post_id );
+    $is_revision = wp_is_post_revision( $post_id );
+    $is_valid_lng_nonce = ( isset( $_POST[ 'lng_nonce' ] ) &&
+        wp_verify_nonce($_POST[ 'lng_nonce' ], basename( __FILE__ ) ) ) ? 'true' : 'false';
+    if ( $is_autosave || $is_revision || !$is_valid_lng_nonce)
+    {
+        return;
+    }
+    if(!empty($_POST['lng']))
+    {
+        update_post_meta($post_id, 'lng',
+        $_POST['lng']);
+    }
+    else
+    {
+        delete_post_meta($post_id, 'lng');
+    }
+}
 
 add_action( 'add_meta_boxes', 'add_meta_box_nutritivna_vrijednost' );
 add_action( 'save_post', 'spremi_kalorije' );
 add_action( 'save_post', 'spremi_proteine' );
 add_action( 'save_post', 'spremi_ugljikohidrate' );
 add_action( 'save_post', 'spremi_masti' );
+add_action( 'save_post', 'spremi_adresu' );
+add_action( 'save_post', 'spremi_telefon' );
+add_action( 'save_post', 'spremi_lat' );
+add_action( 'save_post', 'spremi_lng' );
 
 // Hrana
 
@@ -1175,3 +1376,4 @@ function daj_zadnje_menije()
     $sHtml .= "</ul>";
     return $sHtml;
 }
+

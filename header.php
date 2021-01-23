@@ -21,58 +21,14 @@
     
     <script>
         /*
-      let map;
-      function initMap() {
-        //const myLatLng = { lat: 45.81713422462684, lng: 15.976978341607031 };
-        const map = new google.maps.Map(document.getElementById("map"), {
-            zoom: 8,
-            center: { lat: 45.81713422462684, lng: 15.976978341607031 },
-        });
-        const image = "http://maps.google.com/mapfiles/kml/pal2/icon38.png";
-        const marker = new google.maps.Marker({
-            position: { lat: 45.81713422462684, lng: 15.976978341607031 },
-            map,
-            title: "Hello World!",
-            icon: image,
-        });
-        new google.maps.Marker({
-            position: { lat: 45.816646771484834, lng: 16.00006144330335 },
-            map,
-            title: "Hello World!",
-            icon: image,
-        });
-        new google.maps.Marker({
-            position: { lat: 45.804886317491196, lng: 15.984524429228696 },
-            map,
-            title: "Hello World!",
-            icon: image,
-        });
-        new google.maps.Marker({
-            position: { lat: 45.59429627069257, lng: 18.770362243367025 },
-            map,
-            title: "Hello World!",
-            icon: image,
-        });
-        new google.maps.Marker({
-            position: { lat: 45.201030142807575, lng: 18.141914874676033 },
-            map,
-            title: "Hello World!",
-            icon: image,
-        });
-        marker.addListener("click", () => {
-            map.setZoom(4);
-            map.setCenter(marker.getPosition());
-        });
-        }
-
         https://developers.google.com/maps/documentation/javascript/examples/event-closure
-        */
-        /*
+
         45.814496419596274, 15.979447419766723
         45.816646771484834, 16.00006144330335
         45.804886317491196, 15.984524429228696
         45.59429627069257, 18.770362243367025
         45.201030142807575, 18.141914874676033*/
+        /*
         function initMap() {
             const map = new google.maps.Map(document.getElementById("map"), {
                 zoom: 4,
@@ -115,7 +71,7 @@
             marker.addListener("click", () => {
                 infowindow.open(marker.get("map"), marker);
             });
-        }
+        }*/
 
     </script>
 
@@ -124,26 +80,24 @@
   <body>
 
 	<!-- Navigation -->
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="mainNav">
-            <div class="container">
-                <img class="navbar-logo" src="http://localhost/TastyTrap/logo.png" alt="logo">
-                <a class="navbar-brand" href="index.php"><?php echo get_bloginfo(); ?></a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarResponsive">
-                    <?php
-                        $args = array(
-                            'theme_location'  =>  'glavni-menu',
-                            'menu_id'       =>  'glavni-menu',
-                            'menu_class'    =>  'navbar-nav ml-auto',
-                            'container'     =>  'div',
-                            'container_class' =>  'collapse navbar-collapse',
-                            'container_id'  => 'navbarReponsive'
-                        );
-                        wp_nav_menu( $args );
-
-                    ?>   
-                </div>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="mainNav">
+            <img class="navbar-logo" src="http://localhost/TastyTrap/logo.png" alt="logo">
+            <a class="navbar-brand" href="index.php"><?php echo get_bloginfo(); ?></a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <?php
+                    $args = array(
+                        'theme_location'  =>  'glavni-menu',
+                        'menu_id'       =>  'glavni-menu',
+                        'menu_class'    =>  'navbar-nav ml-auto menu_klasa',
+                        'container'     =>  'div',
+                        'container_class' =>  'collapse navbar-collapse',
+                        'container_id'  => 'navbarReponsive'
+                    );
+                    wp_nav_menu( $args );
+                    get_search_form();
+                ?>   
             </div>
-        </nav>
+    </nav>

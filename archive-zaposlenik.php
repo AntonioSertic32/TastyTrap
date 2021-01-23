@@ -40,17 +40,17 @@ echo '</div></div>';
 
 
 <div class="zaposlenici-kontejner">
-  <h2 class="uzmcdonaldsmogu">Uz McDonald’s mogu.</h2>
+  <h2 class="uzmcdonaldsmogu">Uz Tasty Trap mogu.</h2>
   <div class="boxes">
     <div class="box">
         <h3>Studenti</h3>
-        <p>Fleksibilno radno vrijeme postavlja McDonald's na vrh ljestvice studentskih poslodavaca.</p>
+        <p>Fleksibilno radno vrijeme postavlja Tasty Trap na vrh ljestvice studentskih poslodavaca.</p>
         <p>Biram kada ću raditi.</p>
     </div>
     <div class="box">
         <h3>Napredovanje</h3>
-        <p>Rad u McDonald'su pomaže u osobnoj izgradnji i napredovanju.</p>
-        <p>McDonald's je uvijek tu, da vas podrži i  nagradi. </p>
+        <p>Rad u Tasty Trap-u pomaže u osobnoj izgradnji i napredovanju.</p>
+        <p>Tasty Trap je uvijek tu, da vas podrži i  nagradi. </p>
     </div>
     <div class="box">
         <h3>Prvi posao</h3>
@@ -65,7 +65,7 @@ echo '</div></div>';
     </div>
     <div class="box">
         <h3>Osobe s invaliditetom</h3>
-        <p>U McDonald'su sam naučio kako se organizirati, a to mi pomaže i kod kuće.
+        <p>U Tasty Trap-u sam naučio kako se organizirati, a to mi pomaže i kod kuće.
         </p>
         <p>Podrška kolega je velika. Jako sam zadovoljan!</p>
     </div>
