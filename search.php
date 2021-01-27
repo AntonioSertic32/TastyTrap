@@ -34,32 +34,57 @@ $errorImg = get_template_directory_uri().'/img/404.png';
                 </div>
             </header>';
         ?>
-            <div class="container-fluid"><div class="vijest-item-ul" style="padding-top: 50px;">
-        <?php
-        while ( $the_query->have_posts() ) {
-           $the_query->the_post();
-            ?>
+            <div class="container-fluid" style="padding-top: 50px;">
+
+        <?php 
+            $args = array(
+                'public'   => true,
+                '_builtin' => false,
+            );
+            $output = 'names'; // names or objects, note names is the default
+            $operator = 'and'; // 'and' or 'or'
+            $post_types = get_post_types( $args, $output, $operator ); 
+
+            foreach ( $post_types  as $post_type ) {
+                $brojac = 0;
+                $sHTML = "";
                 
-                <a href="<?php the_permalink(); ?>">
-                    <div class="card" style="min-height: 364px;">
-                        <img class="card-img-top" src="<?php echo get_the_post_thumbnail_url($post->ID); ?>" alt="Card image cap">
-                        <div class="card-body">
-                            <h5 class="card-title text-center"><?php the_title(); ?></h5>
-                            
-                        </div>
-                    </div>
-                </a>
-            <?php
-        }
+                $sHTML .='<div class="vijest-vrsta-item"><h2 style="text-align: center;text-transform: capitalize;">' . $post_type . '</h2><div class="vijest-item-ul">';
+
+                while ( $the_query->have_posts() ) {
+                    
+                    $the_query->the_post();
+
+                    if(get_post_type($the_query->ID) == $post_type) {
+                        $brojac++;
+
+                        $sHTML .= '<a href="'.get_permalink( $post->ID).'">
+                                        <div class="card" style="min-height: 364px;">
+                                            <img class="card-img-top" src="'. get_the_post_thumbnail_url($post->ID) .'" alt="Card image cap">
+                                            <div class="card-body">
+                                                <h5 class="card-title text-center">'. get_the_title($post->ID) .'</h5>
+                                            </div>
+                                        </div>
+                                    </a>';
+                    }
+                }
+                $sHTML .= '</div></div>';
+                if($brojac == 0){
+                    continue;
+                }
+                else {
+                    echo $sHTML;
+                }
+            }
         ?>
         
-        </div></div>
+        </div>
         <?php
     }else{
     ?>
         <h2 style='font-weight:bold;color:#000'>Nothing Found</h2>
         <div class="container text-center" style="font-size: 40px; margin-top:10%">
-          <p>Sorry, but nothing matched your search criteria. Please try again with some different keywords.</p>
+          <p>Žao nam je, ali nije pronađen niti jedan rezultat vaše pretrage. Molimo vas da pokušate sa drugačijim unosom.</p>
 
           <img src="<?php echo $errorImg; ?>">
         </div>

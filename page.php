@@ -1,15 +1,11 @@
 <?php
 get_header();
-
-$array = daj_restorane();
-
-echo $array[0]->naziv_postaje;
 ?>
 
 <script>
 
 function initMap() {
-  var myLatLng = {lat: 45.81713422462684, lng: 15.976978341607031};
+  var myLatLng = {lat: 45.554295891511565, lng: 18.699458831163877};
   var map = new google.maps.Map(document.getElementById('map'), {
     zoom: 8,
     center: myLatLng
@@ -18,6 +14,7 @@ function initMap() {
   var ajaxUrl="<?php echo get_site_url()."/wp-admin/admin-ajax.php?action=daj_restorane"; ?>";
 
   jQuery.getJSON(ajaxUrl, function(data){
+
     for (var i = 0; i < data.length; i++) 
     {
       var aPostaja = data[i];
@@ -25,17 +22,24 @@ function initMap() {
         position: {lat: parseFloat(aPostaja.lat), lng: parseFloat(aPostaja.lng)},
         map: map,
         title: aPostaja.naziv_postaje,
-        url: aPostaja.url
       });
-      marker.addListener('click', function() {
-        document.location.href=this.url;
-      });
+      attachSecretMessage(marker);
+      
+      function attachSecretMessage(marker) {
+        const infowindow = new google.maps.InfoWindow({
+            content:  '<h2 id="firstHeading" class="firstHeading">'+ aPostaja.naziv_postaje +'</h2> <hr>' +
+                      '<p style="font-size: 20px; padding-bottom: 0;">Adresa: <b style="font-weight: 700;">'+ aPostaja.adresa +'</b>' +
+                      '<p style="font-size: 20px; padding-bottom: 0;">Telefon: <b style="font-weight: 700;">'+ aPostaja.telefon +'</b>',
+        });
+        marker.addListener("click", () => {
+            infowindow.open(marker.get("map"), marker);
+        });
+      }
     }  
   });
 }
 
 </script>
-
 
 <?php
 if($post->ID == 320) {

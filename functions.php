@@ -788,13 +788,15 @@ function registriraj_resorani_cpt() {
 }
 add_action( 'init', 'registriraj_resorani_cpt', 0 );
 
-function daj_restorane()
+
+add_action( 'wp_ajax_daj_restorane', 'daj_restorane_json' );
+add_action( 'wp_ajax_nopriv_daj_restorane', 'daj_restorane_json' );
+function daj_restorane_json()
 {
     $args = array(
 		'posts_per_page' => -1,
 		'post_type' => 'restorani',
-		'post_status' => 'publish',
-		'tax_query' => array());
+		'post_status' => 'publish');
     $Restorani = get_posts( $args );
 
     $array = array();
@@ -807,18 +809,24 @@ function daj_restorane()
 
         $lat = get_post_meta($restoranId, 'lat', true);
         $lng = get_post_meta($restoranId, 'lng', true);
+        $telefon = get_post_meta($restoranId, 'telefon', true);
+        $adresa = get_post_meta($restoranId, 'adresa', true);
 
         $object = (object) [
             'lat' => $lat,
             'lng' => $lng,
             'naziv_postaje'=> $restoranNaziv,
             'url'=> $resoranUrl,
+            'telefon' => $telefon,
+            'adresa' => $adresa,
         ];
 
         array_push($array, $object);
     }
     
-    return $array;
+    echo json_encode($array);
+
+    wp_die();
 }
 
 // ------------------------------ >>
